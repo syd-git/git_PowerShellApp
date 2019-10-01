@@ -15,7 +15,7 @@
 Function CreateMenu ($obj)
 {
     
-    $docsLib = Get-PnPList | Where-Object{$_.Basetype -eq "DocumentLibrary" } | select Title, EntityTypeName |  Sort-Object -Property title
+    $docsLib = Get-PnPList | Where-Object{$_.Basetype -eq "DocumentLibrary" } | Select-Object Title, EntityTypeName |  Sort-Object -Property title
     $idx = 0
     for($i=0;$i -lt $docsLib.count;$i++)
     {
@@ -178,7 +178,7 @@ $intro =
 $obj = @()
 CreateMenu -obj ([ref]$obj)
 write-host $intro -fore Cyan
-$obj | select idx, Title | Format-Table
+$obj | Select-Object idx, Title | Format-Table
 
 try
 {
@@ -228,7 +228,7 @@ else
     if($globalObj.count -gt 1)
     {
         write-host "`nFollowing item(s) in `"$folder`" library have unique permissions:" -fore Red
-        $globalObj | select UrlName, Entity | where{$_.entity -ne "Library"} | Format-Table
+        $globalObj | Select-Object UrlName, Entity | Where-Object{$_.entity -ne "Library"} | Format-Table
     }
     else
     {
